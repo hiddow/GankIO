@@ -3,14 +3,15 @@ package com.hiddow.gankio.home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.google.common.collect.Lists;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hiddow.gankio.R;
 import com.hiddow.gankio.base.BaseFragment;
 import com.hiddow.gankio.model.object.Welfare;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,7 +28,7 @@ public class HomeFragment extends BaseFragment implements HomeContact.View {
     SwipeRefreshLayout mSwipeRefreshLayout;
     private HomeContact.Presenter mPresenter;
     private HomeAdapter homeAdapter;
-    private List<Welfare> welfares = Lists.newArrayList();
+    private List<Welfare> welfares = new ArrayList<>();
 
     public static HomeFragment newInstance() {
 
@@ -45,13 +46,21 @@ public class HomeFragment extends BaseFragment implements HomeContact.View {
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
-        homeAdapter = new HomeAdapter(R.layout.activity_home, welfares);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        homeAdapter = new HomeAdapter(R.layout.item_home, welfares);
+        GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 2);
+        mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(homeAdapter);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mPresenter.fetchData();
+            }
+        });
+        homeAdapter.openLoadMore(1, true);
+        homeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                mPresenter.loadMore();
             }
         });
     }
@@ -72,5 +81,10 @@ public class HomeFragment extends BaseFragment implements HomeContact.View {
         welfares.addAll(data);
         homeAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void addData(final List<Welfare> results) {
+        homeAdapter.notifyDataChangedAfterLoadMore(results, true);
     }
 }

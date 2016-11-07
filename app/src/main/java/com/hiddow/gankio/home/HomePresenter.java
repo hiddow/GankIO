@@ -2,7 +2,6 @@ package com.hiddow.gankio.home;
 
 import com.hiddow.gankio.model.WelfareData;
 import com.hiddow.gankio.network.GankApi;
-import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -21,6 +20,7 @@ public class HomePresenter implements HomeContact.Presenter {
 
     private Retrofit retrofit;
 
+    private int curPage = 1;
 
     @Inject
     HomePresenter(Retrofit retrofit, HomeContact.View view) {
@@ -45,8 +45,9 @@ public class HomePresenter implements HomeContact.Presenter {
 
     @Override
     public void fetchData() {
+        curPage = 1;
         retrofit.create(GankApi.class)
-                .getPicData(10, 1)
+                .getPicData(10, curPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<WelfareData>() {
@@ -62,10 +63,38 @@ public class HomePresenter implements HomeContact.Presenter {
 
                     @Override
                     public void onNext(WelfareData welfareData) {
-                        Logger.d(welfareData.results.size());
-                        Logger.d(welfareData.error);
-//                        mView.showWelfare(welfareData.results);
+                        if (!welfareData.error) {
+                            mView.showWelfare(welfareData.results);
+                        }
                     }
                 });
     }
+
+    @Override
+    public void loadMore(){
+        curPage ++;
+        retrofit.create(GankApi.class)
+                .getPicData(10, curPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<WelfareData>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(WelfareData welfareData) {
+                        if (!welfareData.error) {
+                            mView.addData(welfareData.results);
+                        }
+                    }
+                });
+    }
+
 }

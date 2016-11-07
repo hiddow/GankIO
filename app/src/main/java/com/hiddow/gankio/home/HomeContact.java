@@ -13,10 +13,12 @@ import java.util.List;
 public interface HomeContact {
     interface Presenter extends BasePresenter {
         void fetchData();
+        void loadMore();
     }
 
     interface View extends BaseView<Presenter> {
         void showWelfare(List<Welfare> data);
+        void addData(List<Welfare> results);
     }
 
 }
