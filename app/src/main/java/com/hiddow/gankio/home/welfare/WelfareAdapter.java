@@ -1,4 +1,4 @@
-package com.hiddow.gankio.home;
+package com.hiddow.gankio.home.welfare;
 
 
 import android.widget.ImageView;
@@ -16,9 +16,9 @@ import java.util.List;
  * Created by yangxiaoguang on 2016/11/4.
  */
 
-public class HomeAdapter extends BaseQuickAdapter<Welfare> {
+public class WelfareAdapter extends BaseQuickAdapter<Welfare> {
 
-    public HomeAdapter(int layoutResId, List<Welfare> data) {
+    public WelfareAdapter(int layoutResId, List<Welfare> data) {
         super(layoutResId, data);
     }
     @Override

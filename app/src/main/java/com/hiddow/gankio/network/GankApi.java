@@ -1,5 +1,7 @@
 package com.hiddow.gankio.network;
 
+import com.hiddow.gankio.model.AndroidData;
+import com.hiddow.gankio.model.IOSData;
 import com.hiddow.gankio.model.WelfareData;
 
 import retrofit2.http.GET;
@@ -13,4 +15,13 @@ import rx.Observable;
 public interface GankApi {
     @GET("data/福利/{pageSize}/{pageNum}")
     Observable<WelfareData> getPicData(@Path("pageSize") int pageSize, @Path("pageNum") int pageNum);
+
+    @GET("data/Android/{pageSize}/{pageNum}")
+    Observable<AndroidData> getAndroidData(@Path("pageSize") int pageSize, @Path("pageNum") int pageNum);
+
+    @GET("data/iOS/{pageSize}/{pageNum}")
+    Observable<IOSData> getIOSData(@Path("pageSize") int pageSize, @Path("pageNum") int pageNum);
+
+    @GET("data/休息视频/{pageSize}/{pageNum}")
+    Observable<WelfareData> getVideoData(@Path("pageSize") int pageSize, @Path("pageNum") int pageNum);
 }

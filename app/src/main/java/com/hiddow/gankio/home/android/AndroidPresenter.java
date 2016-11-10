@@ -1,6 +1,6 @@
-package com.hiddow.gankio.home;
+package com.hiddow.gankio.home.android;
 
-import com.hiddow.gankio.model.WelfareData;
+import com.hiddow.gankio.model.AndroidData;
 import com.hiddow.gankio.network.GankApi;
 
 import javax.inject.Inject;
@@ -14,16 +14,16 @@ import rx.schedulers.Schedulers;
  * Created by yangxiaoguang on 2016/11/4.
  */
 
-public class HomePresenter implements HomeContact.Presenter {
+public class AndroidPresenter implements AndroidContact.Presenter {
 
-    private HomeContact.View mView;
+    private AndroidContact.View mView;
 
     private Retrofit retrofit;
 
     private int curPage = 1;
 
     @Inject
-    HomePresenter(Retrofit retrofit, HomeContact.View view) {
+    AndroidPresenter(Retrofit retrofit, AndroidContact.View view) {
         this.retrofit = retrofit;
         this.mView = view;
     }
@@ -47,10 +47,10 @@ public class HomePresenter implements HomeContact.Presenter {
     public void fetchData() {
         curPage = 1;
         retrofit.create(GankApi.class)
-                .getPicData(10, curPage)
+                .getAndroidData(10, curPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<WelfareData>() {
+                .subscribe(new Subscriber<AndroidData>() {
                     @Override
                     public void onCompleted() {
 
@@ -62,9 +62,9 @@ public class HomePresenter implements HomeContact.Presenter {
                     }
 
                     @Override
-                    public void onNext(WelfareData welfareData) {
-                        if (!welfareData.error) {
-                            mView.showWelfare(welfareData.results);
+                    public void onNext(AndroidData androidData) {
+                        if (!androidData.error) {
+                            mView.showData(androidData.results);
                         }
                     }
                 });
@@ -74,10 +74,10 @@ public class HomePresenter implements HomeContact.Presenter {
     public void loadMore(){
         curPage ++;
         retrofit.create(GankApi.class)
-                .getPicData(10, curPage)
+                .getAndroidData(10, curPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<WelfareData>() {
+                .subscribe(new Subscriber<AndroidData>() {
                     @Override
                     public void onCompleted() {
 
@@ -89,9 +89,9 @@ public class HomePresenter implements HomeContact.Presenter {
                     }
 
                     @Override
-                    public void onNext(WelfareData welfareData) {
-                        if (!welfareData.error) {
-                            mView.addData(welfareData.results);
+                    public void onNext(AndroidData androidData) {
+                        if (!androidData.error) {
+                            mView.addData(androidData.results);
                         }
                     }
                 });

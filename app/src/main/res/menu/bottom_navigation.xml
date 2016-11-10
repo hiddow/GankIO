@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/ic_face_black_24px"
+        android:id="@+id/item_welfare"
+        android:title="Welfare"/>
+
+    <item
+        android:icon="@drawable/ic_android_black_24px"
+        android:id="@+id/item_android"
+        android:title="Android"/>
+
+    <item
+        android:icon="@drawable/ic_accessibility_black_24px"
+        android:id="@+id/item_iOS"
+        android:title="iOS"/>
+    <!--<item-->
+        <!--android:icon="@drawable/ic_movie_black_24px"-->
+        <!--android:id="@+id/item_video"-->
+        <!--android:title="Video"/>-->
+</menu>

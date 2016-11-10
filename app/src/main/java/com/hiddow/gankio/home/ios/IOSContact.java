@@ -1,8 +1,8 @@
-package com.hiddow.gankio.home;
+package com.hiddow.gankio.home.ios;
 
 import com.hiddow.gankio.BasePresenter;
 import com.hiddow.gankio.BaseView;
-import com.hiddow.gankio.model.object.Welfare;
+import com.hiddow.gankio.model.object.IOSInfo;
 
 import java.util.List;
 
@@ -10,15 +10,15 @@ import java.util.List;
  * Created by yangxiaoguang on 2016/11/4.
  */
 
-public interface HomeContact {
+public interface IOSContact {
     interface Presenter extends BasePresenter {
         void fetchData();
         void loadMore();
     }
 
     interface View extends BaseView<Presenter> {
-        void showWelfare(List<Welfare> data);
-        void addData(List<Welfare> results);
+        void showData(List<IOSInfo> data);
+        void addData(List<IOSInfo> results);
     }
 
 }
