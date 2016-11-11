@@ -35,6 +35,7 @@ public class WelfareFragment extends BaseFragment implements WelfareContact.View
     private WelfareAdapter mAdapter;
     private List<Welfare> mData = new ArrayList<>();
 
+
     public static WelfareFragment newInstance() {
 
         Bundle args = new Bundle();

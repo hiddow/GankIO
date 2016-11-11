@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="welfare"
+            type="com.hiddow.gankio.model.object.Welfare" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_view_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@{welfare.desc}"
+            android:textColor="@color/colorBlackPrimary" />
+
+        <TextView
+            android:id="@+id/text_view_create_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/text_view_desc"
+            android:layout_marginRight="16dp"
+            android:text="@{welfare.getShortTime()}" />
+
+        <TextView
+            android:id="@+id/text_view_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_desc"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/text_view_create_date"
+            android:text="@{welfare.who}" />
+
+
+    </RelativeLayout>
+
+</layout>

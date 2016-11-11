@@ -3,6 +3,7 @@ package com.hiddow.gankio.home.ios;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -36,6 +37,7 @@ public class IOSFragment extends BaseFragment implements IOSContact.View {
     private IOSInfoAdapter mAdapter;
     private List<IOSInfo> mData = Lists.newArrayList();
 
+
     public static IOSFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -63,10 +65,11 @@ public class IOSFragment extends BaseFragment implements IOSContact.View {
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
+        mAdapter = new IOSInfoAdapter(R.layout.item_info, mData);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new IOSInfoAdapter(R.layout.item_android_info, mData);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity, layoutManager.getOrientation()));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

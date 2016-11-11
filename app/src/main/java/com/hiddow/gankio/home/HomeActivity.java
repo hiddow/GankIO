@@ -78,7 +78,6 @@ public class HomeActivity extends BaseActivity {
             }
         });
         mViewPager.setCurrentItem(1);
-
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.hiddow.gankio.home.android;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -62,10 +63,11 @@ public class AndroidFragment extends BaseFragment implements AndroidContact.View
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
+        mAdapter = new AndroidInfoAdapter(R.layout.item_info, mData);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new AndroidInfoAdapter(R.layout.item_android_info, mData);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity,layoutManager.getOrientation()));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
