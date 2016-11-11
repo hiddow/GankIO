@@ -30,8 +30,8 @@ public class ApiBaseModule {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(logging)
-                .connectTimeout(60 * 1000, TimeUnit.MILLISECONDS)
-                .readTimeout(60 * 1000, TimeUnit.MILLISECONDS)
+                .connectTimeout(120 * 1000, TimeUnit.MILLISECONDS)
+                .readTimeout(120 * 1000, TimeUnit.MILLISECONDS)
                 .build();
         return okHttpClient;
     }
@@ -40,7 +40,7 @@ public class ApiBaseModule {
     @Singleton
     public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()

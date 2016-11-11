@@ -3,8 +3,8 @@
 
     <data>
         <variable
-            name="welfare"
-            type="com.hiddow.gankio.model.object.Welfare" />
+            name="baseResult"
+            type="com.hiddow.gankio.model.object.BaseResult" />
     </data>
 
     <RelativeLayout
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="@{welfare.desc}"
+            android:text="@{baseResult.desc}"
             android:textColor="@color/colorBlackPrimary" />
 
         <TextView
@@ -27,7 +27,8 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/text_view_desc"
             android:layout_marginRight="16dp"
-            android:text="@{welfare.getShortTime()}" />
+            android:text="@{baseResult.getShortTime()}"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:id="@+id/text_view_author"
@@ -36,7 +37,7 @@
             android:layout_below="@id/text_view_desc"
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@id/text_view_create_date"
-            android:text="@{welfare.who}" />
+            android:text="@{baseResult.who}" />
 
 
     </RelativeLayout>

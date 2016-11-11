@@ -6,9 +6,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.common.collect.Lists;
+import com.hiddow.gankio.ApplicationModule;
 import com.hiddow.gankio.GankIoApplication;
 import com.hiddow.gankio.R;
 import com.hiddow.gankio.base.BaseFragment;
@@ -54,6 +56,7 @@ public class IOSFragment extends BaseFragment implements IOSContact.View {
         DaggerIOSPresenterComponent.builder()
                 .apiBaseComponent(component)
                 .iOSPresenterModule(new IOSPresenterModule(this))
+                .applicationModule(new ApplicationModule(getContext()))
                 .build()
                 .inject(this);
     }
@@ -81,6 +84,12 @@ public class IOSFragment extends BaseFragment implements IOSContact.View {
             @Override
             public void onLoadMoreRequested() {
                 mPresenter.loadMore();
+            }
+        });
+        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int i) {
+                mPresenter.porformItemClick(mData.get(i));
             }
         });
     }

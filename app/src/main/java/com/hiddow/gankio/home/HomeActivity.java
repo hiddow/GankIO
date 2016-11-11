@@ -8,12 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.hiddow.gankio.R;
 import com.hiddow.gankio.base.BaseActivity;
 import com.hiddow.gankio.home.android.AndroidFragment;
+import com.hiddow.gankio.home.bottomView.BottomSheetView;
 import com.hiddow.gankio.home.ios.IOSFragment;
 import com.hiddow.gankio.home.welfare.WelfareFragment;
 
@@ -29,8 +32,13 @@ public class HomeActivity extends BaseActivity {
     BottomNavigationView mBottomNavigationView;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
+    @BindView(R.id.search_view)
+    SearchView mSearchView;
+    @BindView(R.id.bottom_sheet)
+    LinearLayout mBottomSheet;
     private TabIndexAdapter mAdapter;
     private MenuItem prevMenuItem;
+
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
@@ -78,7 +86,11 @@ public class HomeActivity extends BaseActivity {
             }
         });
         mViewPager.setCurrentItem(1);
+
+        setSearchView();
+
     }
+
 
     @Override
     public int getLayoutResource() {
@@ -130,7 +142,40 @@ public class HomeActivity extends BaseActivity {
             return fragmentsClass.length;
         }
 
-
     }
+
+
+    private void setSearchView() {
+        mSearchView.setIconifiedByDefault(false);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                showBottomSheet(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+
+    private void showBottomSheet(String query) {
+        String category = null;
+        switch (mViewPager.getCurrentItem()) {
+            case 0:
+                category = "福利";
+                break;
+            case 1:
+                category = "Android";
+                break;
+            case 2:
+                category = "iOS";
+                break;
+        }
+        new BottomSheetView(this, mBottomSheet, query, category);
+    }
+
 
 }

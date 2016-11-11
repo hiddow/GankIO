@@ -14,6 +14,7 @@ public interface AndroidContact {
     interface Presenter extends BasePresenter {
         void fetchData();
         void loadMore();
+        void porformItemClick(AndroidInfo item);
     }
 
     interface View extends BaseView<Presenter> {

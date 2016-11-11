@@ -6,9 +6,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.common.collect.Lists;
+import com.hiddow.gankio.ApplicationModule;
 import com.hiddow.gankio.GankIoApplication;
 import com.hiddow.gankio.R;
 import com.hiddow.gankio.base.BaseFragment;
@@ -52,6 +54,7 @@ public class AndroidFragment extends BaseFragment implements AndroidContact.View
         DaggerAndroidPresenterComponent.builder()
                 .apiBaseComponent(component)
                 .androidPresenterModule(new AndroidPresenterModule(this))
+                .applicationModule(new ApplicationModule(getContext()))
                 .build()
                 .inject(this);
     }
@@ -67,7 +70,7 @@ public class AndroidFragment extends BaseFragment implements AndroidContact.View
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity,layoutManager.getOrientation()));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity, layoutManager.getOrientation()));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -81,29 +84,35 @@ public class AndroidFragment extends BaseFragment implements AndroidContact.View
                 mPresenter.loadMore();
             }
         });
-
+        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int i) {
+                AndroidInfo info = mData.get(i);
+                mPresenter.porformItemClick(info);
+            }
+        });
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mPresenter.fetchData();
     }
+    @Override
+    public void setPresenter(AndroidContact.Presenter presenter) {
+
+    }
 
     @Override
-    public void showData(List data) {
+    public void showData(List<AndroidInfo> data) {
         mData.clear();
         mData.addAll(data);
         mAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
+
     }
 
     @Override
-    public void addData(List results) {
+    public void addData(List<AndroidInfo> results) {
         mAdapter.notifyDataChangedAfterLoadMore(results, true);
-    }
-
-    @Override
-    public void setPresenter(AndroidContact.Presenter presenter) {
-
     }
 }

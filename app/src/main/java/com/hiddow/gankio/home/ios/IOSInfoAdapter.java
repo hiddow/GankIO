@@ -21,11 +21,8 @@ public class IOSInfoAdapter extends BaseQuickAdapter<IOSInfo> {
 
     @Override
     protected void convert(BaseViewHolder baseViewHolder, IOSInfo iosInfo) {
-//        baseViewHolder.setText(R.id.text_view_desc, iosInfo.desc);
-//        baseViewHolder.setText(R.id.text_view_author, iosInfo.who);
-//        baseViewHolder.setText(R.id.text_view_create_date, iosInfo.getShortTime());
         ViewDataBinding dataBinding =  DataBindingUtil.bind(baseViewHolder.itemView);
-        dataBinding.setVariable(BR.welfare,iosInfo);
+        dataBinding.setVariable(BR.baseResult,iosInfo);
         dataBinding.executePendingBindings();
     }
 }

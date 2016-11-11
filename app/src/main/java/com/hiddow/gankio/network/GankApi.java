@@ -2,6 +2,7 @@ package com.hiddow.gankio.network;
 
 import com.hiddow.gankio.model.AndroidData;
 import com.hiddow.gankio.model.IOSData;
+import com.hiddow.gankio.model.SearchResultData;
 import com.hiddow.gankio.model.WelfareData;
 
 import retrofit2.http.GET;
@@ -24,4 +25,8 @@ public interface GankApi {
 
     @GET("data/休息视频/{pageSize}/{pageNum}")
     Observable<WelfareData> getVideoData(@Path("pageSize") int pageSize, @Path("pageNum") int pageNum);
+
+    @GET("search/query/{keyword}/category/{category}/count/{pageSize}/page/{pageNum}")
+    Observable<SearchResultData> getSearchData(@Path("keyword") String keyword, @Path("category") String category,
+                                               @Path("pageSize") int pageSize, @Path("pageNum") int pageNum);
 }

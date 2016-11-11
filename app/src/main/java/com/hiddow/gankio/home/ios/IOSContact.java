@@ -14,6 +14,7 @@ public interface IOSContact {
     interface Presenter extends BasePresenter {
         void fetchData();
         void loadMore();
+        void porformItemClick(IOSInfo item);
     }
 
     interface View extends BaseView<Presenter> {

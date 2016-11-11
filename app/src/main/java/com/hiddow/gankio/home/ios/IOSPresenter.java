@@ -1,6 +1,10 @@
 package com.hiddow.gankio.home.ios;
 
+import android.content.Context;
+
+import com.hiddow.gankio.home.GithubInfoActivity;
 import com.hiddow.gankio.model.IOSData;
+import com.hiddow.gankio.model.object.IOSInfo;
 import com.hiddow.gankio.network.GankApi;
 
 import javax.inject.Inject;
@@ -21,6 +25,9 @@ public class IOSPresenter implements IOSContact.Presenter {
     private Retrofit retrofit;
 
     private int curPage = 1;
+
+    @Inject
+    Context mContext;
 
     @Inject
     IOSPresenter(Retrofit retrofit, IOSContact.View view) {
@@ -95,6 +102,11 @@ public class IOSPresenter implements IOSContact.Presenter {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void porformItemClick(IOSInfo item) {
+        mContext.startActivity(GithubInfoActivity.newIntent(mContext,item.url,item.desc));
     }
 
 }
