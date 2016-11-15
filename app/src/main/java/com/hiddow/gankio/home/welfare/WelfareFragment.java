@@ -5,11 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hiddow.gankio.GankIoApplication;
 import com.hiddow.gankio.R;
 import com.hiddow.gankio.base.BaseFragment;
+import com.hiddow.gankio.home.WelfareActivity;
 import com.hiddow.gankio.model.object.Welfare;
 import com.hiddow.gankio.network.ApiBaseComponent;
 
@@ -78,6 +80,12 @@ public class WelfareFragment extends BaseFragment implements WelfareContact.View
             @Override
             public void onLoadMoreRequested() {
                 mPresenter.loadMore();
+            }
+        });
+        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int i) {
+                startActivity(WelfareActivity.newIntent(mActivity, mData.get(i)));
             }
         });
     }
