@@ -29,7 +29,6 @@ public class ApiBaseModule {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(logging)
                 .connectTimeout(120 * 1000, TimeUnit.MILLISECONDS)
                 .readTimeout(120 * 1000, TimeUnit.MILLISECONDS)
                 .build();

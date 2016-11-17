@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -75,6 +78,18 @@ public abstract class BaseFragment extends Fragment {
      * @param savedInstanceState
      */
     public abstract void initData(@Nullable Bundle savedInstanceState);
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getSimpleName()); //统计页面，"MainScreen"为页面名称，可自定义
+        Logger.d("onResume" + "/" + getClass().getSimpleName());
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getSimpleName());
+        Logger.d("onPause" + "/" + getClass().getSimpleName());
+    }
 
 
 }

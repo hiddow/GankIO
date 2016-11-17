@@ -23,3 +23,15 @@
 -dontwarn org.junit.**
 -dontwarn org.hamcrest.**
 -dontwarn com.squareup.javawriter.JavaWriter
+
+
+-keepclassmembers class * {
+    public <init> (org.json.JSONObject);
+}
+#-keep public class [com.hiddow.gankio].R$*{
+#    public static final int *;
+#}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}

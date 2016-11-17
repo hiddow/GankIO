@@ -5,6 +5,7 @@ import android.app.Application;
 import com.hiddow.gankio.network.ApiBaseComponent;
 import com.hiddow.gankio.network.ApiBaseModule;
 import com.hiddow.gankio.network.DaggerApiBaseComponent;
+import com.umeng.analytics.MobclickAgent;
 
 
 /**
@@ -17,6 +18,7 @@ public class GankIoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        MobclickAgent.openActivityDurationTrack(false);
         component = DaggerApiBaseComponent.builder()
                 .apiBaseModule(new ApiBaseModule())
                 .build();
